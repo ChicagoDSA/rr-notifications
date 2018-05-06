@@ -26,72 +26,40 @@ In the terminal,
   
   ```bash
   pipenv shell
+  
+  # Make sure you are using Python 3 and it's a virtualenv copy
+  # The following commands should point to wherever you 
+  # configured your virtualenvs to stored
+  
+  which python 
+  
+  # check for python 3
+  python --version 
+  
+  # Should be 3.6.5. If not make sure you have installed and activated the venv correctly
   ```
-That will activate a Python virtual environment for the project.
+That will activate a Python virtual environment for the project. 
 
-Next install all the required packages
+Next, install the packages specified in `Pipfiile` and `Pipfile.lock`. Always be sure to include those files in future commits if more pip packages are installed.
 
 ```bash
-pipenv install
+pipenv sync
+```
+Let's fire up a dev server now that the virtualenv has the required packages.
+
+The Pipfile includes a package named [`django-extensions` ](https://github.com/django-extensions/django-extensions). This package has improved versions of some Django's management commands. One of them is an improved version of the regular dev server. Do the following to start that bad boy up.
+```
+# Move to the Django project root dir
+cd rr-notifications
+
+# Run database migrations
+python manage.py migrate
+
+# Get the dev server popping
+python manage.py runserver_plus
+
 ```
 
+Now go to [localhost:8000](http://localhost:8000) and you should hopefully see an ugly green page.
 
-## The template
 
-```
-# *Project title*
-
-*Short description of your project, in one or two sentences.* 
-
-## Setup 
-
-### Dependencies
-
-*Provide links and descriptions for the third-party libraries you're having your users install.*
-
-### Installation
-
-* Mac OS X
-* Ubuntu
-* Windows (if applicable)
-
-### Getting started
-
-*What does your user need to know to get everything ready after installation?*
-*Think about databases, config files, and settings.*
-
-## Usage
-
-*Give your users a sense of the workflow for using your project/tool.*
-*For a website this might include code for running locally.*
-*For an API this might include method and parameter specs.*
-
-## Demo
-
-*Grab a simple block of code that makes use of your project/tool and paste it here.*
-
-## Team
-
-* *Name, Organization - role or tasks worked on*
-
-*Add a "contributors" section if you've incorporated pull requests.*
-
-## Errors and bugs
-
-If something is not behaving intuitively, it is a bug and should be reported.
-Report it here by creating an issue: https://github.com/datamade/your-repo-here/issues
-
-Help us fix the problem as quickly as possible by following [Mozilla's guidelines for reporting bugs.](https://developer.mozilla.org/en-US/docs/Mozilla/QA/Bug_writing_guidelines#General_Outline_of_a_Bug_Report)
-
-## Patches and pull requests
-
-Your patches are welcome. Here's our suggested workflow:
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Send us a pull request with a description of your work. Bonus points for topic branches!
-
-## Copyright and attribution
-
-Copyright (c) 2016 DataMade. Released under the [MIT License](https://github.com/datamade/your-repo-here/blob/master/LICENSE).
-```
