@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-extensions = "*"
+werkzeug = "*"
+ipython = "*"
+ptpython = "*"
+jupyter = "*"
+django-webpack-loader = "*"
+
+[dev-packages]
+pylint = "*"
+
+[requires]
+python_version = "3.6"

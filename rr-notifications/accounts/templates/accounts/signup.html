@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Content for My App</h2>
+  <p>{{ task_data }}</p>
+
+  {% if form.errors %}
+    {% for field in form %}
+      {% for error in field.errors %}
+        <div class="alert alert-danger">
+          <strong>{{ error|escape }}</strong>
+        </div>
+      {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+      <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+      </div>
+    {% endfor %}
+  {% endif %}
+  <form action="/test-report/" method="post">
+    {% csrf_token %} {{ form }}
+    <input type="submit" value="Submit" />
+  </form>
+
+
+{% endblock content %}
