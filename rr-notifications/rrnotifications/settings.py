@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party packages installed thrugh pip
+    'phonenumber_field',
     'django_extensions',
     'webpack_loader',
 ]
@@ -101,7 +102,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -159,11 +159,14 @@ WEBPACK_LOADER = {
     }
 }
 
-# Data processing and external script locations
-DATA_SCRIPT_DIR = os.path.join(BASE_DIR, 'scripts')
+###################################################
+############## Phone Related Settings #############
+###################################################
 
 
+# Many of these will need to be broken out into environment specific files for settings,py
 
+PHONENUMBER_DB_FORMAT='E164'
 
 
 

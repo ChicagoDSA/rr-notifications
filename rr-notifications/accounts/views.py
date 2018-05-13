@@ -43,7 +43,7 @@ def account_signup(request):
         # The context is a dictionary of values you want to display in the template
         # Things like strings, models from teh DB anything you want to insert into template
     ctxt = {
-        
+        'form': form,
     }
         
     return render(request, 'accounts/signup.html', ctxt)
