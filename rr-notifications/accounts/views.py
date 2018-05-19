@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 from .forms import SignupForm
+from .models import WorkingGroup, Account
 # import the logging library
 import logging
 
@@ -23,9 +24,10 @@ def account_signup(request):
         request {request} -- Standard DJango request
     """
     logger.debug(request)
+    group_qs = WorkingGroup.objects.all()
     if request.method == 'POST':
         # Code for POST requests
-        form = SignupForm(request.POST)
+        form = SignupForm(qs=group_qs)
         # check if form fields are valid
         if form.is_valid():
             data = form.cleaned_data
@@ -37,7 +39,7 @@ def account_signup(request):
         submit_type = 'POST Request'
     else: 
         # Code for GET requests
-        form = SignupForm()
+        form = SignupForm(qs=group_qs)
         submit_type = 'GET Request'
 
         # The context is a dictionary of values you want to display in the template

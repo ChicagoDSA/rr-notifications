@@ -9,7 +9,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 
 
-
 class Account(models.Model):
     """Stores information about someone subscribing to the text messages
 
@@ -27,3 +26,20 @@ class Account(models.Model):
         return "{0}-{1}".format(self.name, self.phone_number)
 
 
+
+class WorkingGroup(models.Model):
+    """ 
+    Represents a working group. Has a ManyTomany Reltionship with Account
+    Intermediate table (pivot table?) is created automaitcally by DJango as far as I know
+    """
+    name = models.CharField(max_length=255)
+    accounts = models.ManyToManyField(Account, 'members', blank=True)
+    active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+    class Meta:
+        ordering = ('name',)
