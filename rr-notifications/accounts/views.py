@@ -33,6 +33,7 @@ def account_signup(request):
             data = form.cleaned_data
             logger.debug('data from form')
             logger.debug(data)
+            account = Account()
           
 
         # set context data after the "DataTask" runs

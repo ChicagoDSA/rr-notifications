@@ -1,27 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
+from accounts.models import WorkingGroup
 
 class MessageType(models.Model):
+    ''' 
+    Represents the type of message being sent. It is not being used at the momement. 
+     '''
     name = models.CharField('Name of the type of message', max_length=255)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     # later on we can add some sort of relationship here to restrict who gets what messages
 
 class Message(models.Model):
-    
     message_text = models.TextField('Message being sent out')
-    
     # optional URL to be appended to be included in the text
-    mnessage_url = models.CharField('Link that can be included in message', null=True, blank=True)
+    message_url = models.CharField('Link that can be included in message', null=True, blank=True)
     # type of message being sent, if a MessageType gets deleted don't delete the foreign key
-    message_type = models.ForeignKey(MessageType, on_delete=models.PROTECT)
-    
-    # TODO: look into ways to send just to certain groups
-    # recipients = models.ManyToManyField()\
-    is_campaign = models.BooleanField('Campaign text or interactional one', default=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User)
+    recipients = models.ManyToManyField(WorkingGroup, related_name="recipients")
     created_at = models.DateTimeField(auto_now_add=True)
+
 
 
 class SentMessage(models.Model):

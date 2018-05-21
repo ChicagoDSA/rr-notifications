@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
+  <div class="row">
   <h2>Content for My App</h2>
   <p>{{ task_data }}</p>
 
@@ -18,9 +20,18 @@
     {% endfor %}
   {% endif %}
   <form action="/test-report/" method="post">
-    {% csrf_token %} {{ form }}
+    {% csrf_token %} 
+       {% for field in form.visible_fields %}
+       <div class="row">
+          <div class="col-xs-12">
+            <label>{{ field.label }}</label>
+            {{ field }}
+          </div>
+        </div>
+        {% endfor %}
     <input type="submit" value="Submit" />
   </form>
-
+  </div>
+</div>
 
 {% endblock content %}
