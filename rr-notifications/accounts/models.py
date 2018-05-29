@@ -9,13 +9,12 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 class Account(models.Model):
     """Stores information about someone subscribing to the text messages
-
     """
     # phone numbers MUST be saved in E.164 format, take a gander over on Google to learn more
     phone_number = PhoneNumberField()
     name = models.CharField(_('Member Name'),max_length=255)
     zip_code = models.CharField(_('Active Zip Code'), max_length=10)
-    opted_in = models.BooleanField('Has this account opted in for texts', default=True)
+    opted_in = models.BooleanField('Account opted out of texts', default=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

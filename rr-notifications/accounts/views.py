@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 from .forms import SignupForm
@@ -21,19 +21,21 @@ def account_signup(request):
     It will run a test "DataTask" synchronously for now  
 
     Arguments:
-        request {request} -- Standard DJango request
+        request {request} -- Standard Django request
     """
     logger.debug(request)
     group_qs = WorkingGroup.objects.all()
     if request.method == 'POST':
         # Code for POST requests
-        form = SignupForm(qs=group_qs)
+        form = SignupForm(request.POST)
         # check if form fields are valid
         if form.is_valid():
             data = form.cleaned_data
             logger.debug('data from form')
             logger.debug(data)
-            account = Account()
+            account = Account(data)
+            account.save()
+            return redirect('account_signup_success', {})
           
 
         # set context data after the "DataTask" runs
@@ -50,3 +52,10 @@ def account_signup(request):
     }
         
     return render(request, 'accounts/signup.html', ctxt)
+
+
+def signup_success(request, extra_info=None):
+    ctxt = {
+        'info' : extra_info,
+    }
+    return render(request, 'accounts/success.html', ctxt)

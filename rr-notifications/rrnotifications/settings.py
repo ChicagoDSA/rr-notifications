@@ -244,7 +244,7 @@ LOGGING = {
             'propagate': False,
         },
         'rr': {
-            'handlers': ['logfile', 'debuglog', 'console'],
+            'handlers': ['logfile', 'debuglog', 'console', 'logfile_debug'],
             'level': 'DEBUG', # Or maybe INFO or DEBUG
             'propagate': False
         },

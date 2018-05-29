@@ -16,9 +16,6 @@ class Message(models.Model):
     message_text = models.TextField('Message being sent out')
     # optional URL to be appended to be included in the text
     message_url = models.CharField('Link that can be included in message', null=True, blank=True)
-    # type of message being sent, if a MessageType gets deleted don't delete the foreign key
-    created_by = models.ForeignKey(User)
-    recipients = models.ManyToManyField(WorkingGroup, related_name="recipients")
     created_at = models.DateTimeField(auto_now_add=True)
 
 
