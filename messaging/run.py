@@ -32,7 +32,7 @@ async def producer():
             await asyncio.sleep(1)
 
 
-async def consumer():
+async def consumer(io):
     last_at = datetime.now()
     while True:
         message = await messages.get()
@@ -40,8 +40,8 @@ async def consumer():
         if diff > 0:
             await asyncio.sleep(diff)
 
-        #TODO: Wrap in a thread using run_as_executor
-        messager(message)
+        task = asyncio.ensure_future(io.run_in_executor(None, messager, message))
+        await asyncio.wait([task])
         last_at = datetime.now()
 
 
@@ -58,6 +58,6 @@ def messager(info):
 
 loop = asyncio.get_event_loop()
 loop.create_task(producer())
-loop.create_task(consumer())
+loop.create_task(consumer(loop))
 
 loop.run_forever()
