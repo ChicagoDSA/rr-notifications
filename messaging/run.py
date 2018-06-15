@@ -1,25 +1,24 @@
-from settings import r
+from settings import get_client
 from datetime import datetime
 from twilio.rest import Client
-import sys
 import json
 import asyncio
+import os
+import time
 
-#TODO: These needs to be an ENV variable passed via docker
-channel = sys.argv[1]
-secs_per_msg = int(sys.argv[2])
-account_sid = sys.argv[3]
-auth_token =  sys.argv[4]
+#TODO use the config parser class for this
+channel = os.environ['REDIS_CHANNEL']
+secs_per_msg = int(os.environ['SECS_PER_MSG'])
+account_sid = os.environ['TWILIO_SID']
+auth_token = os.environ['TWILIO_TOKEN']
+from_account = os.environ['FROM_ACCOUNT']
+redis_server = os.environ['REDIS_SERVER']
 
 client = Client(account_sid, auth_token)
-
-pubsub = r.pubsub(ignore_subscribe_messages=True)
+pubsub = get_client(redis_server).pubsub(ignore_subscribe_messages=True)
 pubsub.subscribe(channel)
 
 messages = asyncio.Queue()
-
-print ('Listening to the channel')
-
 
 async def producer():
     while True:
@@ -46,14 +45,13 @@ async def consumer(io):
 
 
 def messager(info):
+    # TODO: add error handling if parsing or sending a message fails
     info = json.loads(info)
     message = client.messages.create(
         body = info['message'],
-        # TODO: Forgot what this was
-        from_ = 'MG7a6f7258ae5f997a493ac29648309fb9',
+        from_ = from_account,
         to = info['number']
     )
-    print(message.sid)
 
 
 loop = asyncio.get_event_loop()

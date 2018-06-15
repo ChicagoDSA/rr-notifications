@@ -7,3 +7,17 @@ services:
     volumes:
       - ./redis.conf:/usr/local/etc/redis/redis.conf
     command: redis-server /usr/local/etc/redis/redis.conf
+
+  message_service:
+    image: message_service
+    environment:
+      # this can be anything but both parts, sender and reciever need to match
+      - REDIS_CHANNEL=rr_notifications
+      # this is configurable but should not be less than one
+      - SECS_PER_MSG=1
+      # this needs to be the name of the redis service
+      - REDIS_SERVER=redis
+      # Twilio account info
+      - TWILIO_SID=
+      - TWILIO_TOKEN=
+      - FROM_ACCOUNT=
