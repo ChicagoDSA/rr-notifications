@@ -12,11 +12,6 @@ cd ./rr-notifications
 # build dependent dirs
 mkdir logs
 
-# install javascript packages
-yarn install
-
-# build javascript for webapp
-yarn run build
-
 # run dev server on localhost:8000
-python manage.py runserver_plus
+cd ..
+./run
