@@ -12,6 +12,7 @@ ptpython = "*"
 jupyter = "*"
 django-webpack-loader = "*"
 django-phonenumber-field = "*"
+phonenumbers = "*"
 
 [dev-packages]
 pylint = "*"
