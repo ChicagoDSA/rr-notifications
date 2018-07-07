@@ -16,29 +16,29 @@ Make sure to have the following installed
 
 ### Django Setup
 
-Django 2.0 is being used. All the required Python packages are managed using pipenv. It's probably worthwhile to learn a bit about pipenv. 
+Django 2.0 is being used. All the required Python packages are managed using pipenv. It's probably worthwhile to learn a bit about pipenv.
 
 
 
 To install what's needed move to the nested rr-notifications directory. There will be a `Pipfile` and `Pipfile.lock`
 
 In the terminal,
-  
+
   ```bash
   pipenv shell
-  
+
   # Make sure you are using Python 3 and it's a virtualenv copy
-  # The following commands should point to wherever you 
+  # The following commands should point to wherever you
   # configured your virtualenvs to stored
-  
-  which python 
-  
+
+  which python
+
   # check for python 3
-  python --version 
-  
+  python --version
+
   # Should be 3.6.5. If not make sure you have installed and activated the venv correctly
   ```
-That will activate a Python virtual environment for the project. 
+That will activate a Python virtual environment for the project.
 
 Next, install the packages specified in `Pipfiile` and `Pipfile.lock`. Always be sure to include those files in future commits if more pip packages are installed.
 
@@ -48,24 +48,9 @@ pipenv sync
 Let's fire up a dev server now that the virtualenv has the required packages.
 
 The Pipfile includes a package named [`django-extensions` ](https://github.com/django-extensions/django-extensions). This package has improved versions of some Django's management commands. One of them is an improved version of the regular dev server. Do the following to start that bad boy up.
+This will (assuming you have the right node version ^6.11 and pipenv working correctly) install python and js deps, migrate the db, and run the dev server. If you get error messages, double check that you have pipenv shell running
 ```
-# Move to the Django project root dir
-cd rr-notifications
-
-# Run database migrations
-python manage.py migrate
-
-# Install JS dependencies
-yarn install
-
-# Build JS
-yarn run build
-
-# Get the dev server popping
-python manage.py runserver_plus
-
+./install
 ```
 
 Now go to [localhost:8000](http://localhost:8000) and you should hopefully see an ugly green page.
-
-
