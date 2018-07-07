@@ -1,0 +1,1 @@
+python ./rr-notifications/manage.py runserver_plus
