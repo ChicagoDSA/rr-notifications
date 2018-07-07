@@ -100,3 +100,4 @@ yarn-error.log
 webpack_bundles/
 bundles/
 dist/
+node_modules/

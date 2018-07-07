@@ -55,6 +55,12 @@ cd rr-notifications
 # Run database migrations
 python manage.py migrate
 
+# Install JS dependencies
+yarn install
+
+# Build JS
+yarn run build
+
 # Get the dev server popping
 python manage.py runserver_plus
 
